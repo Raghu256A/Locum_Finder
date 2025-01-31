@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:locumfinder/screens/register_details_screen.dart';
 
 class OTPScreen extends StatefulWidget {
   @override
@@ -33,6 +34,8 @@ class _OTPScreenState extends State<OTPScreen> {
           decoration: InputDecoration(
             counterText: "",
             border: OutlineInputBorder(),
+            filled: true,
+            fillColor: Colors.blue[50]
           ),
           onChanged: (value) {
             if (value.isNotEmpty && index < 3) {
@@ -52,28 +55,42 @@ class _OTPScreenState extends State<OTPScreen> {
     // Your logic to verify OTP
     print("OTP Verified!");
     // On successful verification, navigate to the next screen
+    Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterDetailsScreen(),));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(title: Text("Enter OTP")),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          // Background image
+          Positioned.fill(
+            child: Image.asset(
+              'images/otp_bg1.jpg',  // Replace with your image path
+              fit: BoxFit.cover,  // Ensures the image covers the screen
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(4, (index) => buildOTPBox(index)),
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(4, (index) => buildOTPBox(index)),
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: verifyOTP,
+                  child: Text("Verify OTP"),
+                ),
+              ],
             ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: verifyOTP,
-              child: Text("Verify OTP"),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

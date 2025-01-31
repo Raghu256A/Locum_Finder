@@ -1,6 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:locumfinder/apptextformfield.dart';
 import 'package:locumfinder/screens/register_screen.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -12,9 +15,11 @@ class LoginScreen extends StatefulWidget {
 class _LoginState extends State<LoginScreen> {
   final TextEditingController userIdController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  bool isObscure = true;
 
   @override
   Widget build(BuildContext context) {
+    bool isWeb = kIsWeb;
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -24,7 +29,7 @@ class _LoginState extends State<LoginScreen> {
             decoration: BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(
-                      "images/login_img.jpg"
+                      "images/bg1.jpg"
                   ),
                 fit: BoxFit.cover
               ),
@@ -43,10 +48,10 @@ class _LoginState extends State<LoginScreen> {
               children: [
                 Center(
                   child: Container(
-                    height: 430,
-                    width: 335,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
+                    height: 350.0,
+                    width: 280.0,
+               decoration: isWeb?  BoxDecoration(
+                      color: Color(0xFF0B5AD0),
                       borderRadius: BorderRadius.circular(15),
                       boxShadow: [
                         BoxShadow(
@@ -55,27 +60,64 @@ class _LoginState extends State<LoginScreen> {
                           spreadRadius: 1.0,
                         ),
                       ],
-                    ),
+                    ):null,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: 4,
+                          height: 15.0,
                         ),
-                        Image.asset(
+                        /*Image.asset(
                           "images/icon.jpg",
                           height: 50,
                           width: 240,
-                        ),
-                        Text(
-                          "Please Login to continue",
-                          style: TextStyle(fontSize: 16, color: Colors.grey),
+                        ),*/
+                        Column(
+                          crossAxisAlignment:CrossAxisAlignment.start ,
+                          children: [
+                            Text(
+                              "Welcome back...!",
+                              style: TextStyle(fontSize: 19, color: Colors.white,fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              "Please enter your login details",
+                              style: TextStyle(fontSize: 12, color: Colors.white70,fontWeight: FontWeight.normal),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: 8,
                         ),
-                        Container(
-                          width: 250,
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: AppTextFormField(
+                            hintText: "UserId",
+                            cursorColor: Colors.white,
+                            textColor: Colors.white,
+                            hintColor:Colors.white70 ,
+                            suffixIcon: Icon(Icons.person,color: Colors.white70,),
+                            focusedBorderColor: Colors.white,
+                          ),
+                        ),Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: AppTextFormField(
+                            hintText: "Password",
+                            cursorColor: Colors.white,
+                            textColor: Colors.white,
+                            hintColor:Colors.white70 ,
+                            suffixIcon: IconButton(
+                                onPressed: (){
+                                  setState(() {
+                                    isObscure = !isObscure;
+                                  });
+                                },
+                                icon: Icon(isObscure?Icons.visibility_off_outlined:Icons.visibility,color: Colors.white70,)),
+                            focusedBorderColor: Colors.white,
+                            obscureText: isObscure,
+                          ),
+                        ),
+                        /*Container(
+                          width: 200,
                           child: TextField(
                             controller: userIdController,
                             decoration: InputDecoration(
@@ -87,12 +129,12 @@ class _LoginState extends State<LoginScreen> {
                                   TextStyle(fontSize: 12, color: Colors.grey),
                             ),
                           ),
-                        ),
-                        SizedBox(
+                        ),*/
+                        /*SizedBox(
                           height: 8,
                         ),
                         Container(
-                          width: 250,
+                          width: 200,
                           child: TextField(
                             controller: passwordController,
                             obscureText: true,
@@ -109,9 +151,9 @@ class _LoginState extends State<LoginScreen> {
                                   TextStyle(fontSize: 12, color: Colors.grey),
                             ),
                           ),
-                        ),
+                        ),*/
                         Padding(
-                          padding: EdgeInsets.fromLTRB(20.0, 20.0, 40.0, 20.0),
+                          padding: EdgeInsets.fromLTRB(10.0, 5.0, 20.0, 10.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
@@ -122,7 +164,7 @@ class _LoginState extends State<LoginScreen> {
                                 child: Text(
                                   'Forgot Password?',
                                   style:
-                                      TextStyle(color: Colors.redAccent[400]),
+                                      TextStyle(color: Colors.red,fontWeight: FontWeight.bold,fontSize: 16.0),
                                 ),
                               ),
                             ],
@@ -131,22 +173,23 @@ class _LoginState extends State<LoginScreen> {
                         SizedBox(
                           height: 1.0,
                         ),
-                        SizedBox(height: 40.0,width: 200.0,
+                        SizedBox(height: 40.0,width: 150.0,
                           child:  ElevatedButton(
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xFC07CEE8),
-                                elevation: 3,
-                                shadowColor: Colors.grey[100],textStyle: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.white)
+                                backgroundColor: Color(0xFCF7FAF5),
+                                elevation: 5.0,
+                                shadowColor: Colors.grey,textStyle: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,color: Colors.white)
                             ),
-                            child: Text('Login',style: TextStyle(color: Colors.white,),),
+                            child: Text('Login',style: TextStyle(color: Colors.black,),),
                           ),
                         ),
-                        SizedBox(height: 8,),
+                        SizedBox(height: 5,),
 
-                        Text('or Loin with',style: TextStyle(color: Colors.grey),),
-                        SizedBox(height: 10,),
-                        Row(
+                        false?Text('or Loin with',style: TextStyle(color: Colors.grey),):SizedBox(),
+                        // SizedBox(height: 10,),
+
+                        false?Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             SizedBox(height: 40,width: 40,
@@ -166,7 +209,7 @@ class _LoginState extends State<LoginScreen> {
                             ),),
 
                             SizedBox(width: 16.0),
-                            SizedBox(height: 40,width: 40,
+                            SizedBox(height: 35,width: 35,
                               child: ElevatedButton.icon(
                                 onPressed: () {
                                   // Handle login with Gmail logic
@@ -178,16 +221,16 @@ class _LoginState extends State<LoginScreen> {
                                     borderRadius: BorderRadius.circular(20), // Rounded corners
                                   ),
                                 ),
-                                icon: Icon(FontAwesomeIcons.apple,size: 22,color: Colors.white,),
+                                icon: Icon(FontAwesomeIcons.apple,size: 15,color: Colors.white,),
                                 label: Text(''),
                               ),),
                           ],
-                        ),
-                        SizedBox(height: 16.0),
+                        ):SizedBox(),
+                        SizedBox(height: 8.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text('Don\'t have an account?'),
+                            Text('Don\'t have an account?',style: TextStyle(color: Colors.white70),),
                             GestureDetector(
                               onTap: () {
                                 Navigator.push(
@@ -197,7 +240,7 @@ class _LoginState extends State<LoginScreen> {
                               },
                               child: Text(
                                 ' Register Now',
-                                style: TextStyle(color: Color(0xFC07CEE8)),
+                                style: TextStyle(color: Color(0xFCFAFBFC),fontSize: 16.0),
                               ),
                             ),
                           ],
